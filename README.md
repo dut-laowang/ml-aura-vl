@@ -1,20 +1,15 @@
-# AurA for Toxicity Mitigation
+# AurA for Toxicity Mitigation - MLLM Revision
 
 <p align="center">
 <a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
 </p>
-
-This software project accompanies the research paper, [Whispering Experts: Neural Interventions for Toxicity Mitigation in Language Models](https://openreview.net/forum?id=2P6GVfSrfZ).
-
-## Abstract
-An important issue with Large Language Models (LLMs) is their undesired ability to generate toxic language. In this work, we show that the neurons responsible for toxicity can be determined by their power to discriminate toxic sentences, and that toxic language can be mitigated by reducing their activation levels proportionally to this power. We propose AurA, an intervention that can be applied to any pre-trained LLM to mitigate toxicity. As the intervention is proportional to the ability of each neuron to discriminate toxic content, it is free of any model-dependent hyperparameters. We show that AurA can achieve up to $2.2\times$ reduction in toxicity with only a $0.72$ perplexity increase. We also show that AurA is effective with models of different scale (from 1.5B to 40B parameters), and its effectiveness in mitigating toxic language, while preserving common-sense zero-shot abilities, holds across all scales. AurA can be combined with pre-prompting strategies, boosting its average  mitigation potential from $1.28\times$ to $2.35\times$. Moreover, AurA can counteract adversarial pre-prompts that maliciously elicit toxic content, making it an effective method for deploying safer and less toxic models.
 
 ## Getting Started 
 
 ### 1. Clone this repository
 
 ```bash
-git clone https://github.com/apple/ml-aura.git
+git clone https://github.com/dutlao-wang/ml-aura-vl.git
 ```
 
 ### 2. Install requirements
@@ -28,18 +23,22 @@ Optionally install this repository
 ```bash
 pip install -e .
 ```
+```bash
+export PYTHONPATH=.
+```
+```bash
+pip install -U transformers
+```
+```bash
+pip install openpyxl
+```
+### 3. Download the dataset and store in the pics/ pics/500
 
-### 3. Download the jigsaw dataset
-
-You can find it in [Kaggle](https://www.kaggle.com/datasets/julian3833/jigsaw-toxic-comment-classification-challenge?select=train.csv)
-
-Let's say you save the dataset in `DATA_DIR`. Your filesystem should look the following way:
 
 ```bash
-> ls $DATA_DIR/jigsaw
-
-train.csv
-test.csv
+> ls $DATA_DIR/llava1
+train.xlsx
+test.xlsx
 ...
 ```
 
@@ -52,16 +51,29 @@ Huggingface models are downloaded by default to the path specified in `HF_HUB_CA
 ### 1. Extract Responses
 
 ```bash
-python -m scripts.compute_responses \
-    --config-path configs/responses.yaml \
-    --data-dir $DATA_DIR \
-    --device cpu \
-    --model-path openai-community/gpt2 \
-    --module-names 'transformer.h.*.mlp.c_fc' 'transformer.h.*.mlp.c_proj' \
-    --tag toxicity-responses \
-    --verbose 1
-```
+python -m scripts.llava_response \
+  --model-path llava-hf/llava-1.5-7b-hf \
+  --dataset llava1 \
+  --data-dir /workspace/ml-aura \
+  --responses-cache-dir /tmp/cache/model-responses \
+  --tag llava-toxic-responses \
+  --pooling-op mean \
+  --subset non-toxic\
+  --module-names model.language_model.layers.*.mlp.up_proj model.language_model.layers.*.mlp.gate_proj model.language_model.layers.*.mlp.down_proj
 
+```
+```bash
+python -m scripts.llava_response \
+  --model-path llava-hf/llava-1.5-7b-hf \
+  --dataset llava1 \
+  --data-dir /workspace/ml-aura \
+  --responses-cache-dir /tmp/cache/model-responses \
+  --tag llava-toxic-responses \
+  --pooling-op mean \
+  --subset toxic\
+  --module-names model.language_model.layers.*.mlp.up_proj model.language_model.layers.*.mlp.gate_proj model.language_model.layers.*.mlp.down_proj
+
+```
 The output will be written in the following folder structure:
 
 ```xml
@@ -76,8 +88,9 @@ Note that most of the configuration is now already encapsulated in [configs/aura
 
 ```bash
 python -m scripts.learn_aura \
---config-path configs/aura.yaml \
---module-names 'transformer.h.*.mlp.c_fc' 'transformer.h.*.mlp.c_proj'
+  --config-path configs/llava_aura.yaml \
+  --module-names 'model.language_model.layers.*.mlp.up_proj' 'model.language_model.layers.*.mlp.gate_proj' 'model.language_model.layers.*.mlp.down_proj'
+
 ```
 
 The output will be a set of pytorch statedicts written in the following folder structure:
@@ -88,25 +101,19 @@ The output will be a set of pytorch statedicts written in the following folder s
 
 By default `args.interventions-cache-dir` is set to `/tmp/cache/model-interventions`
 
-### 3. Generate with intervened model
+### 3. Generate with intervened model and Test
 
 ```bash
-python -m scripts.generate_with_hooks \
---intervention-name aura \
---intervention-state-path /tmp/cache/model-interventions/aura-toxicity-max/gpt2 \
---model-path openai-community/gpt2 \
---device cpu \
---verbose 1 \
---module-names 'transformer.h.*.mlp.c_fc' 'transformer.h.*.mlp.c_proj'
+python -m scripts.generate_with_hooks_llava_500_prompt \
+  --model-path llava-hf/llava-1.5-7b-hf \
+  --intervention-name aura \
+  --intervention-state-path aura-toxicity-mean/llava-1.5-7b-hf \
+  --module-names 'model.language_model.layers.*.mlp.up_proj' 'model.language_model.layers.*.mlp.gate_proj' 'model.language_model.layers.*.mlp.down_proj' \
+  --device cuda \
+  --verbose 1
 ```
 
-## Test
 
-We include pytest unit tests to verify the integrity of the code.
-
-```bash
-pytest .
-```
 ## Citation
 ```bibtex
 @inproceedings{
@@ -118,7 +125,3 @@ year={2024},
 url={https://openreview.net/forum?id=2P6GVfSrfZ}
 }
 ```
-
-## Contact
-
-Xavier Suau Cuadros (`xsuaucuadros@apple.com`)
