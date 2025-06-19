@@ -3,6 +3,7 @@
 <p align="center">
 <a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
 </p>
+The multimodal MLLM implementation of https://github.com/apple/ml-aura, any use must be authorized by xsuaucuadros@apple.com.
 
 ## Getting Started 
 
