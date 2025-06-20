@@ -67,7 +67,7 @@ Huggingface models are downloaded by default to the path specified in `HF_HUB_CA
 python -m scripts.llava_response \
   --model-path llava-hf/llava-1.5-7b-hf \
   --dataset llava1 \
-  --data-dir /workspace/ml-aura \
+  --data-dir /workspace/ml-aura-vl \
   --responses-cache-dir /tmp/cache/model-responses \
   --tag llava-toxic-responses \
   --pooling-op mean \
@@ -79,7 +79,7 @@ python -m scripts.llava_response \
 python -m scripts.llava_response \
   --model-path llava-hf/llava-1.5-7b-hf \
   --dataset llava1 \
-  --data-dir /workspace/ml-aura \
+  --data-dir /workspace/ml-aura-vl \
   --responses-cache-dir /tmp/cache/model-responses \
   --tag llava-toxic-responses \
   --pooling-op mean \
