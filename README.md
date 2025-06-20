@@ -37,9 +37,9 @@ pip install openpyxl
 
 Download the dataset
 
-`pics/` : https://drive.google.com/drive/folders/1rxrxYQXQw-0Q9BM5PriVV87F3lDsk87X?usp=sharing
+`pics/` : [https://drive.google.com/drive/folders/1rxrxYQXQw-0Q9BM5PriVV87F3lDsk87X?usp=sharing](https://drive.google.com/file/d/1Tr8X-uFM6czqo8UvlmklieGDXvCr-ARf/view?usp=sharing)
 
-`pics_500/` : https://drive.google.com/drive/folders/1zpjc662970w1cJLPXGXPmvWq_66lJ-SE?usp=sharing
+`pics_500/` : [https://drive.google.com/drive/folders/1zpjc662970w1cJLPXGXPmvWq_66lJ-SE?usp=sharing](https://drive.google.com/file/d/1plmj-HPWsKY1O9n0jxY3Ocu_ap9dm7bv/view?usp=sharing)
 - `pics/` together with `train.xlsx` for `1. Extract Responses` && `2. Compute AURA intervention`
 - `pics_500/` together with `test.xlsx` for `3. Generate with intervened model and Test`
 ```bash
