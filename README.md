@@ -6,6 +6,7 @@
 The multimodal MLLM implementation of https://github.com/apple/ml-aura, any use must be authorized by xsuaucuadros@apple.com.
 
 ## Getting Started 
+Recommend GPU - `A100 PCLe 80G * 1`
 
 ### 1. Clone this repository
 
