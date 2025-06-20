@@ -128,14 +128,3 @@ python -m scripts.generate_with_hooks_llava_500_prompt \
 
 The generation will be the form as `generated_outputs_with_hooks.csv`
 
-## Citation
-```bibtex
-@inproceedings{
-suau2024whispering,
-title={Whispering Experts: Neural Interventions for Toxicity Mitigation in Language Models},
-author={Xavier Suau and Pieter Delobelle and Katherine Metcalf and Armand Joulin and Nicholas Apostoloff and Luca Zappella and Pau Rodriguez},
-booktitle={Forty-first International Conference on Machine Learning},
-year={2024},
-url={https://openreview.net/forum?id=2P6GVfSrfZ}
-}
-```
