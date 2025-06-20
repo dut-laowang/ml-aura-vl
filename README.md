@@ -125,6 +125,7 @@ python -m scripts.generate_with_hooks_llava_500_prompt \
   --verbose 1
 ```
 
+The generation will be the form as `generated_outputs_with_hooks.csv`
 
 ## Citation
 ```bibtex
