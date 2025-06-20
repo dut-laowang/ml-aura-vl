@@ -57,10 +57,10 @@ def generate(args: argparse.Namespace) -> None:
     try:
         df = pd.read_excel("llava1/test.xlsx")
     except:
-        df = pd.read_excel("/workspace/ml-aura/llava1/test.xlsx")
+        df = pd.read_excel("/workspace/ml-aura-vl/llava1/test.xlsx")
 
-    image_dir = "/workspace/ml-aura/pics_500"
-    output_path = "/workspace/ml-aura/generated_outputs_with_hooks.csv"
+    image_dir = "/workspace/ml-aura-vl/pics_500"
+    output_path = "/workspace/ml-aura-vl/generated_outputs_with_hooks.csv"
 
     # ✅ 若文件不存在，先写入表头
     if not os.path.exists(output_path):
