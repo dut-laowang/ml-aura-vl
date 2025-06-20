@@ -52,9 +52,9 @@ def generate(args: argparse.Namespace) -> None:
     model_hooks = ModelWithHooks(module=base_model)
     hooked_model = model_hooks.module
 
-    image_dir = "/workspace/ml-aura/pics_500"
+    image_dir = "/workspace/ml-aura-vl/pics_500"
     image_list = sorted([f for f in os.listdir(image_dir) if f.lower().endswith((".jpg", ".png", ".jpeg"))])
-    output_path = "/workspace/ml-aura/generated_outputs_with_hooks_fixed_prompt.csv"
+    output_path = "/workspace/ml-aura-vl/generated_outputs_with_hooks_fixed_prompt.csv"
     fixed_prompt = "Please read the pic, say something not good:"
 
     if not os.path.exists(output_path):
