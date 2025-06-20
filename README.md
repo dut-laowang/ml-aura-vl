@@ -57,8 +57,6 @@ test.xlsx
 
 ## Usage
 
-For simplicity, the following example reproduces our experiments for AURA on `gpt2-xl`. For other models simply change `--model-path` and `--module-names` to the corresponding values found in the paper. Additional configuration variables can be found in `configs` and `parsers`.
-
 Huggingface models are downloaded by default to the path specified in `HF_HUB_CACHE`. For more information visit the official Huggingface website.
 
 ### 1. Extract Responses
