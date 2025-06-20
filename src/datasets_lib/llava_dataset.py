@@ -15,7 +15,7 @@ class LLaVAOSSDataset(torch.utils.data.Dataset):
         self.data = pd.read_excel(path / f"{split}.xlsx")
         self.tokenizer = tokenizer
         self.index = torch.arange(len(self.data))
-        self.image_root = "/workspace/ml-aura/pics"
+        self.image_root = "/workspace/ml-aura-vl/pics"
 
         all_labels = torch.tensor(self.data["label"].values)
         bincount = torch.bincount(all_labels)
