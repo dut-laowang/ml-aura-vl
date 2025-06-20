@@ -11,7 +11,7 @@ Recommend GPU - `A100 PCLe 80G * 1`
 ### 1. Clone this repository
 
 ```bash
-git clone https://github.com/dutlao-wang/ml-aura-vl.git
+git clone https://github.com/dut-laowang/ml-aura-vl.git
 ```
 
 ### 2. Install requirements
