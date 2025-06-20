@@ -1,0 +1,22 @@
+description: LLaVA AURA toxic example
+name: llava-model-interventions
+parameters:
+  dataset: ["llava1"]
+  positive_subset:
+    - toxic
+  negative_subset:
+    - non-toxic
+  num_workers: 4
+  pooling_op: ["mean"]
+  seed: 42
+  model_path: "llava-hf/llava-1.5-7b-hf"
+  module_names: [
+    "model.language_model.layers.*.mlp.up_proj",
+    "model.language_model.layers.*.mlp.gate_proj",
+    "model.language_model.layers.*.mlp.down_proj"
+  ]
+  tag: "llava-toxic-responses"
+  intervention: "aura"
+  num_experts: null
+command:
+  "${PYTHON} -m scripts.learn_aura"
