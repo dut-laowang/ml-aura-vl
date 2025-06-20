@@ -33,11 +33,22 @@ pip install -U transformers
 ```bash
 pip install openpyxl
 ```
-### 3. Download the dataset and store in the pics/ pics/500
+### 3. Download the dataset and store in the pics/ pics_500/
 
+Download the dataset
 
+`pics/` : https://drive.google.com/drive/folders/1rxrxYQXQw-0Q9BM5PriVV87F3lDsk87X?usp=sharing
+
+`pics_500/` : https://drive.google.com/drive/folders/1zpjc662970w1cJLPXGXPmvWq_66lJ-SE?usp=sharing
+- `pics/` together with `train.xlsx` for `1. Extract Responses` && `2. Compute AURA intervention`
+- `pics_500/` together with `test.xlsx` for `3. Generate with intervened model and Test`
 ```bash
-> ls $DATA_DIR/llava1
+> ls ml-aura-vl/pics
+animal_abuse__0__0.jpg
+...
+```
+```bash
+> ls ml-aura-vl/llava1
 train.xlsx
 test.xlsx
 ...
