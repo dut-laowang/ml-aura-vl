@@ -36,7 +36,7 @@ pip install openpyxl
 ```
 ### 3. Download the MM-SafetyBench (MM) dataset and store in the /ml-aura-vl/MM-SafetyBench/data/imgs
 
-Download the MM dataset : [https://drive.google.com/drive/folders/1rxrxYQXQw-0Q9BM5PriVV87F3lDsk87X?usp=sharing](https://drive.google.com/file/d/1Tr8X-uFM6czqo8UvlmklieGDXvCr-ARf/view?usp=sharing)
+Download the MM dataset : [https://drive.google.com/file/d/1vhYDp7PX6-IjHkS5zxLYuXwc6X29VVPH/view?usp=sharing](https://drive.google.com/file/d/1vhYDp7PX6-IjHkS5zxLYuXwc6X29VVPH/view?usp=sharing)
 
 Run```python rename.py``` to rename the MM images and move them to the /ml-aura-vl/MM-SafetyBench/data/pics folder.
 
