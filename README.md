@@ -59,6 +59,8 @@ Huggingface models are downloaded by default to the path specified in `HF_HUB_CA
 
 ### 1. Extract Responses (Twice: toxic/non-toxic)
 
+go to ```cd /ml-aura-vl/```
+
 ```bash
 python -m scripts.llava_response \
   --model-path llava-hf/llava-1.5-7b-hf \
