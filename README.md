@@ -34,24 +34,22 @@ pip install -U transformers
 ```bash
 pip install openpyxl
 ```
-### 3. Download the dataset and store in the pics/ pics_500/
+### 3. Download the MM-SafetyBench (MM) dataset and store in the /ml-aura-vl/MM-SafetyBench/data/imgs
 
-Download the dataset
+Download the MM dataset : [https://drive.google.com/drive/folders/1rxrxYQXQw-0Q9BM5PriVV87F3lDsk87X?usp=sharing](https://drive.google.com/file/d/1Tr8X-uFM6czqo8UvlmklieGDXvCr-ARf/view?usp=sharing)
 
-`pics/` : [https://drive.google.com/drive/folders/1rxrxYQXQw-0Q9BM5PriVV87F3lDsk87X?usp=sharing](https://drive.google.com/file/d/1Tr8X-uFM6czqo8UvlmklieGDXvCr-ARf/view?usp=sharing)
+Run```python rename.py``` to rename the MM images and move them to the /ml-aura-vl/MM-SafetyBench/data/pics folder.
 
-`pics_500/` : [https://drive.google.com/drive/folders/1zpjc662970w1cJLPXGXPmvWq_66lJ-SE?usp=sharing](https://drive.google.com/file/d/1plmj-HPWsKY1O9n0jxY3Ocu_ap9dm7bv/view?usp=sharing)
-- `pics/` together with `train.xlsx` for `1. Extract Responses` && `2. Compute AURA intervention`
-- `pics_500/` together with `test.xlsx` for `3. Generate with intervened model and Test`
 ```bash
-> ls ml-aura-vl/pics
-animal_abuse__0__0.jpg
+> ls ml-aura-vl/MM-SafetyBench/data/imgs
+01-Illegal_Activitiy
+02-HateSpeech
 ...
 ```
 ```bash
-> ls ml-aura-vl/llava1
-train.xlsx
-test.xlsx
+> ls ml-aura-vl/MM-SafetyBench/data/pics
+01-Illegal_Activitiy_0.jpg
+01-Illegal_Activitiy_1.jpg
 ...
 ```
 
@@ -59,7 +57,7 @@ test.xlsx
 
 Huggingface models are downloaded by default to the path specified in `HF_HUB_CACHE`. For more information visit the official Huggingface website.
 
-### 1. Extract Responses
+### 1. Extract Responses (Twice: toxic/non-toxic)
 
 ```bash
 python -m scripts.llava_response \
@@ -69,7 +67,7 @@ python -m scripts.llava_response \
   --responses-cache-dir /tmp/cache/model-responses \
   --tag llava-toxic-responses \
   --pooling-op mean \
-  --subset non-toxic\
+  --subset toxic\
   --module-names model.language_model.layers.*.mlp.up_proj model.language_model.layers.*.mlp.gate_proj model.language_model.layers.*.mlp.down_proj
 
 ```
@@ -81,7 +79,7 @@ python -m scripts.llava_response \
   --responses-cache-dir /tmp/cache/model-responses \
   --tag llava-toxic-responses \
   --pooling-op mean \
-  --subset toxic\
+  --subset non-toxic\
   --module-names model.language_model.layers.*.mlp.up_proj model.language_model.layers.*.mlp.gate_proj model.language_model.layers.*.mlp.down_proj
 
 ```
@@ -115,14 +113,15 @@ By default `args.interventions-cache-dir` is set to `/tmp/cache/model-interventi
 ### 3. Generate with intervened model and Test
 
 ```bash
-python -m scripts.generate_with_hooks_llava_500_prompt \
-  --model-path llava-hf/llava-1.5-7b-hf \
+python -m scripts.generate_with_hooks_mmbench_llava \
+  --model-path llava-hf/llava-1.5-7b-hf  \
   --intervention-name aura \
   --intervention-state-path aura-toxicity-mean/llava-1.5-7b-hf \
   --module-names 'model.language_model.layers.*.mlp.up_proj' 'model.language_model.layers.*.mlp.gate_proj' 'model.language_model.layers.*.mlp.down_proj' \
   --device cuda \
+  --dtype float32 \
   --verbose 1
 ```
 
-The generation will be the form as `generated_outputs_with_hooks.csv`
+Run the MM-SafetyBench/evaluation.py and can see the result in ```\eval_results```
 
