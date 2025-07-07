@@ -1,0 +1,1 @@
+{"model_no_hook": {"safe": 24, "unsafe": 73, "attack_rate": 0.7525773195876289}, "model_with_hook": {"safe": 43, "unsafe": 54, "attack_rate": 0.5567010309278351}}
