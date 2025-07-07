@@ -124,4 +124,5 @@ python -m scripts.generate_with_hooks_mmbench_llava \
 ```
 
 Run the MM-SafetyBench/evaluation.py and can see the result in ```\eval_results```
-！[]()
+
+![https://github.com/dut-laowang/ml-aura-vl/blob/main/result_demo.JPG](https://github.com/dut-laowang/ml-aura-vl/blob/main/result_demo.JPG)
